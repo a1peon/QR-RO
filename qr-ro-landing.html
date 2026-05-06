@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR-RO — 공간은 더 아름답게, 매장은 더 똑똑하게</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --green: #1a7a55; --black: #0d0d0d; --gray: #666; --border: #e0e0e0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Noto Sans KR', sans-serif; background: #fff; color: #0d0d0d; font-size: 17px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+  nav { position: sticky; top: 0; z-index: 999; background: #fff; border-bottom: 1.5px solid #0d0d0d; display: flex; align-items: center; justify-content: space-between; padding: 0 60px; height: 70px; }
+  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 30px; letter-spacing: 3px; }
+  .logo em { color: var(--green); font-style: normal; }
+  .nav-links { display: flex; align-items: center; gap: 36px; }
+  .nav-links a { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #888; text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: #0d0d0d; }
+  .nav-cta { font-family: 'Noto Sans KR', sans-serif; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; background: #0d0d0d; color: #fff; border: none; padding: 12px 28px; cursor: pointer; transition: background .2s; }
+  .nav-cta:hover { background: var(--green); }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 70px); border-bottom: 1.5px solid #0d0d0d; }
+  .hero-left { padding: 80px 60px; border-right: 1.5px solid #0d0d0d; display: flex; flex-direction: column; justify-content: flex-end; }
+  .hero-eyebrow { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #888; margin-bottom: 28px; }
+  .hero-headline { font-family: 'DM Serif Display', serif; font-size: clamp(52px, 6vw, 80px); line-height: 1.05; }
+  .hero-headline em { font-style: italic; color: var(--green); }
+  .hero-right { padding: 80px 60px; display: flex; flex-direction: column; justify-content: space-between; }
+  .hero-visual { flex: 1; display: flex; align-items: center; justify-content: center; }
+  .hero-desc { font-size: 18px; color: #666; line-height: 1.9; margin-bottom: 32px; }
+  .hero-btns { display: flex; flex-direction: column; gap: 12px; }
+
+  .btn-black { font-family: 'Noto Sans KR', sans-serif; background: #0d0d0d; color: #fff; border: none; padding: 18px 28px; font-size: 15px; letter-spacing: 0.04em; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background .2s; width: 100%; }
+  .btn-black:hover { background: var(--green); }
+  .btn-border { font-family: 'Noto Sans KR', sans-serif; background: transparent; color: #0d0d0d; border: 1.5px solid #0d0d0d; padding: 18px 28px; font-size: 15px; letter-spacing: 0.04em; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all .2s; width: 100%; }
+  .btn-border:hover { background: #f5f5f5; }
+
+  .ticker { background: var(--green); border-bottom: 1.5px solid #0d0d0d; overflow: hidden; padding: 14px 0; }
+  .ticker-track { display: flex; gap: 64px; white-space: nowrap; animation: tick 18s linear infinite; width: max-content; }
+  .ticker-item { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; display: flex; align-items: center; gap: 16px; }
+  .ticker-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.45); }
+  @keyframes tick { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+  .ns { display: grid; grid-template-columns: 100px 1fr; border-bottom: 1.5px solid #0d0d0d; }
+  .ns-num { font-family: 'Bebas Neue', sans-serif; font-size: 64px; color: #0d0d0d; opacity: 0.08; border-right: 1.5px solid #0d0d0d; padding: 48px 0 48px 32px; line-height: 1; display: flex; align-items: flex-start; }
+  .ns-body { padding: 48px 60px; }
+  .ns-label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+  .ns-label::before { content: ''; width: 28px; height: 1px; background: #aaa; }
+  .ns-title { font-family: 'DM Serif Display', serif; font-size: clamp(30px, 3.5vw, 46px); line-height: 1.2; margin-bottom: 36px; }
+
+  .pain-item { display: flex; gap: 24px; align-items: flex-start; padding: 22px 0; border-top: 1px solid #eee; }
+  .pain-item:first-child { border-top: none; padding-top: 0; }
+  .pain-n { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--green); min-width: 30px; line-height: 1.2; }
+  .pain-text { font-size: 17px; line-height: 1.7; }
+  .pain-text strong { font-weight: 700; }
+  .pain-text span { font-size: 15px; color: #666; display: block; margin-top: 4px; }
+
+  .feat-item { display: flex; align-items: stretch; border-top: 1px solid #eee; }
+  .feat-item:last-child { border-bottom: 1px solid #eee; }
+  .feat-icon { width: 70px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-right: 1px solid #eee; }
+  .feat-icon i { font-size: 28px; color: var(--green); }
+  .feat-text { padding: 22px 28px; }
+  .feat-text h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .feat-text p { font-size: 16px; color: #666; line-height: 1.75; }
+
+  .ctbl { width: 100%; border-collapse: collapse; font-size: 16px; }
+  .ctbl th { padding: 16px 18px; font-size: 13px; letter-spacing: 0.05em; border-bottom: 1.5px solid #0d0d0d; text-align: center; color: #888; font-weight: 500; }
+  .ctbl th.hl { color: var(--green); font-weight: 700; }
+  .ctbl td { padding: 16px 18px; text-align: center; border-bottom: 1px solid #eee; }
+  .ctbl td:first-child { text-align: left; color: #888; font-size: 14px; }
+  .ctbl .qcol { background: rgba(26,122,85,0.05); }
+  .ck { color: var(--green); font-size: 22px; }
+  .cx { color: #ccc; font-size: 22px; }
+
+  .port-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .port-empty { border: 1.5px dashed #ccc; border-radius: 10px; min-height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: #bbb; }
+  .port-empty i { font-size: 36px; opacity: 0.4; }
+  .port-empty span { font-size: 14px; text-align: center; line-height: 1.6; }
+
+  .plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1.5px solid #0d0d0d; }
+  .plan { padding: 40px 36px; border-right: 1.5px solid #0d0d0d; }
+  .plan:last-child { border-right: none; }
+  .plan.best { background: var(--green); }
+  .plan-tier { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #aaa; margin-bottom: 18px; }
+  .plan.best .plan-tier { color: rgba(255,255,255,0.55); }
+  .plan-price { font-family: 'Bebas Neue', sans-serif; font-size: 64px; line-height: 1; color: #0d0d0d; }
+  .plan.best .plan-price { color: #fff; }
+  .plan-unit { font-size: 14px; color: #888; margin-bottom: 20px; }
+  .plan.best .plan-unit { color: rgba(255,255,255,0.6); }
+  .plan-name { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+  .plan.best .plan-name { color: #fff; }
+  .plan-feats { display: flex; flex-direction: column; gap: 10px; }
+  .plan-feat { font-size: 14px; color: #666; display: flex; gap: 10px; align-items: flex-start; line-height: 1.55; }
+  .plan-feat i { font-size: 16px; color: var(--green); margin-top: 2px; flex-shrink: 0; }
+  .plan.best .plan-feat { color: rgba(255,255,255,0.8); }
+  .plan.best .plan-feat i { color: #a8e6c8; }
+
+  .annual { border-top: 1.5px solid #0d0d0d; border-bottom: 1.5px solid #0d0d0d; padding: 36px 60px; display: flex; justify-content: space-between; align-items: center; gap: 30px; }
+  .annual h3 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .annual p { font-size: 15px; color: #666; line-height: 1.7; }
+  .ann-price-block { text-align: right; flex-shrink: 0; }
+  .ann-old { font-size: 14px; color: #aaa; text-decoration: line-through; }
+  .ann-big { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--green); line-height: 1; }
+  .ann-sub { font-size: 13px; color: #888; }
+
+  .faq-item { border-top: 1px solid #eee; }
+  .faq-item:last-child { border-bottom: 1px solid #eee; }
+  .faq-btn { width: 100%; background: none; border: none; padding: 22px 0; text-align: left; font-family: 'Noto Sans KR', sans-serif; font-size: 17px; font-weight: 500; cursor: pointer; color: #0d0d0d; display: flex; justify-content: space-between; align-items: center; }
+  .faq-btn i { font-size: 22px; color: #aaa; transition: transform .25s; }
+  .faq-btn.open i { transform: rotate(180deg); }
+  .faq-ans { font-size: 16px; color: #666; line-height: 1.85; max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .2s; }
+  .faq-ans.open { max-height: 300px; padding-bottom: 22px; }
+
+  footer { display: flex; justify-content: space-between; align-items: center; padding: 36px 60px; border-top: 1.5px solid #0d0d0d; flex-wrap: wrap; gap: 20px; }
+  .foot-logo { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 3px; }
+  .foot-logo em { color: var(--green); font-style: normal; }
+  .foot-info { font-size: 13px; color: #aaa; line-height: 1.7; margin-top: 6px; }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { border-right: none; border-bottom: 1.5px solid #0d0d0d; padding: 48px 24px; }
+    .hero-right { padding: 48px 24px; }
+    .ns { grid-template-columns: 70px 1fr; }
+    .ns-body { padding: 32px 24px; }
+    .plan-grid { grid-template-columns: 1fr; }
+    .plan { border-right: none; border-bottom: 1.5px solid #0d0d0d; }
+    .annual { flex-direction: column; align-items: flex-start; padding: 28px 24px; }
+    .ann-price-block { text-align: left; }
+    footer { padding: 28px 24px; }
+    .port-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">QR<em>-</em>RO</div>
+  <div class="nav-links">
+    <a href="#features">서비스</a>
+    <a href="#pricing">요금제</a>
+    <a href="#faq">FAQ</a>
+    <button class="nav-cta" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">무료 체험 신청</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">카페 스마트 매장 관리 시스템</div>
+    <h1 class="hero-headline">공간은<br>더 아름답게,<br>매장은 더<br><em>똑똑</em>하게.</h1>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <svg width="200" height="260" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="tg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#c8a97e" stop-opacity="0.28"/>
+            <stop offset="100%" stop-color="#a07850" stop-opacity="0.1"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="100" cy="242" rx="88" ry="14" fill="url(#tg)"/>
+        <rect x="74" y="228" width="52" height="8" rx="4" fill="#0d0d0d" opacity="0.1"/>
+        <rect x="92" y="194" width="16" height="36" rx="3" fill="#0d0d0d" opacity="0.08"/>
+        <rect x="32" y="27" width="136" height="174" rx="13" fill="#0d0d0d" opacity="0.04"/>
+        <rect x="28" y="23" width="136" height="174" rx="13" fill="rgba(255,255,255,0.92)" stroke="#ddd" stroke-width="1.2"/>
+        <rect x="28" y="23" width="16" height="174" rx="13" fill="white" opacity="0.5"/>
+        <text x="96" y="52" font-family="'Bebas Neue', monospace" font-size="15" fill="#0d0d0d" text-anchor="middle" letter-spacing="4" opacity="0.7">QR-RO</text>
+        <line x1="44" y1="61" x2="148" y2="61" stroke="#ddd" stroke-width="1"/>
+        <g transform="translate(50,74)" opacity="0.8">
+          <rect x="0" y="0" width="26" height="26" rx="3" fill="none" stroke="#0d0d0d" stroke-width="2.2"/>
+          <rect x="5" y="5" width="16" height="16" rx="1.5" fill="none" stroke="#0d0d0d" stroke-width="1.4"/>
+          <rect x="9" y="9" width="8" height="8" rx="1" fill="#0d0d0d"/>
+          <rect x="68" y="0" width="26" height="26" rx="3" fill="none" stroke="#0d0d0d" stroke-width="2.2"/>
+          <rect x="73" y="5" width="16" height="16" rx="1.5" fill="none" stroke="#0d0d0d" stroke-width="1.4"/>
+          <rect x="77" y="9" width="8" height="8" rx="1" fill="#0d0d0d"/>
+          <rect x="0" y="68" width="26" height="26" rx="3" fill="none" stroke="#0d0d0d" stroke-width="2.2"/>
+          <rect x="5" y="73" width="16" height="16" rx="1.5" fill="none" stroke="#0d0d0d" stroke-width="1.4"/>
+          <rect x="9" y="77" width="8" height="8" rx="1" fill="#0d0d0d"/>
+          <rect x="33" y="3" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="41" y="3" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.35"/>
+          <rect x="49" y="3" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="57" y="3" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.35"/>
+          <rect x="33" y="11" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.35"/>
+          <rect x="41" y="11" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="57" y="11" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.35"/>
+          <rect x="33" y="19" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="49" y="19" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.35"/>
+          <rect x="57" y="19" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="33" y="33" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.35"/>
+          <rect x="41" y="33" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="49" y="33" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.35"/>
+          <rect x="33" y="41" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="49" y="41" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="33" y="49" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.35"/>
+          <rect x="41" y="49" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="33" y="57" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="49" y="57" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.35"/>
+          <rect x="62" y="33" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="70" y="33" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.35"/>
+          <rect x="78" y="33" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="62" y="41" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.35"/>
+          <rect x="78" y="41" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="70" y="49" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="62" y="57" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.35"/>
+          <rect x="78" y="57" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="33" y="71" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="41" y="71" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.35"/>
+          <rect x="49" y="71" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="62" y="69" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.35"/>
+          <rect x="70" y="73" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="78" y="69" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.35"/>
+          <rect x="78" y="77" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+          <rect x="57" y="71" width="5" height="5" rx="1" fill="#0d0d0d" opacity="0.6"/>
+        </g>
+        <line x1="44" y1="176" x2="148" y2="176" stroke="#ddd" stroke-width="1"/>
+        <text x="66"  y="194" font-size="18" text-anchor="middle">📶</text>
+        <text x="100" y="194" font-size="18" text-anchor="middle">🚻</text>
+        <text x="134" y="194" font-size="18" text-anchor="middle">🤫</text>
+        <circle cx="37" cy="32" r="3" fill="white" opacity="0.7"/>
+      </svg>
+    </div>
+    <p class="hero-desc">반복되는 질문 응대, 무서운 별점 테러.<br>테이블 위 작은 아크릴 스탠드 하나로<br>사장님의 멘탈과 노동력을 지켜드립니다.</p>
+    <div class="hero-btns">
+      <button class="btn-black" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">무료 체험 신청하기 <i class="ti ti-arrow-right"></i></button>
+      <button class="btn-border" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">서비스 자세히 보기 <i class="ti ti-arrow-down"></i></button>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item"><div class="ticker-dot"></div>악성 리뷰 방어</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>인건비 절감</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>디지털 마케팅</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>초기 기기값 0원</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>인테리어 해치지 않음</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>악성 리뷰 방어</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>인건비 절감</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>디지털 마케팅</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>초기 기기값 0원</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>인테리어 해치지 않음</div>
+  </div>
+</div>
+
+<section class="ns">
+  <div class="ns-num">01</div>
+  <div class="ns-body">
+    <div class="ns-label">문제 인식</div>
+    <h2 class="ns-title">매일 반복되는 감정 소모,<br>언제까지 직접 감당하시겠습니까?</h2>
+    <div class="pain-item"><div class="pain-n">1</div><div class="pain-text"><strong>바쁠 때마다 와이파이·화장실 비밀번호 묻는 손님.</strong><span>피크타임에 응대할 여유가 없습니다.</span></div></div>
+    <div class="pain-item"><div class="pain-n">2</div><div class="pain-text"><strong>말도 없이 네이버 별점 1점 달고 가는 손님.</strong><span>이유를 알 수 없으니 대처도 불가능합니다.</span></div></div>
+    <div class="pain-item"><div class="pain-n">3</div><div class="pain-text"><strong>신메뉴 나왔는데 알릴 방법이 마땅치 않은 현실.</strong><span>종이 포스터는 인테리어를 망치고, SNS는 효과가 불확실합니다.</span></div></div>
+  </div>
+</section>
+
+<section class="ns" id="features">
+  <div class="ns-num">02</div>
+  <div class="ns-body">
+    <div class="ns-label">솔루션</div>
+    <h2 class="ns-title">테이블 위 작은 스탠드 하나.<br>QR-RO가 사장님 대신 일합니다.</h2>
+    <div class="feat-item"><div class="feat-icon"><i class="ti ti-shield-check"></i></div><div class="feat-text"><h3>악성 리뷰 방어</h3><p>손님의 불만이 네이버 별점이 되기 전, 사장님 카톡으로 먼저 옵니다. 비밀 건의함이 리뷰 테러를 막아드립니다.</p></div></div>
+    <div class="feat-item"><div class="feat-icon"><i class="ti ti-robot"></i></div><div class="feat-text"><h3>자동 안내로 노동력 절감</h3><p>와이파이 비밀번호, 화장실 위치, 영업시간. QR이 24시간 대신 안내합니다.</p></div></div>
+    <div class="feat-item"><div class="feat-icon"><i class="ti ti-speakerphone"></i></div><div class="feat-text"><h3>디지털 마케팅 배너</h3><p>신메뉴, 이벤트를 손님 스마트폰에 직접 띄웁니다. 인쇄비 없이 실시간 업데이트됩니다.</p></div></div>
+  </div>
+</section>
+
+<section class="ns">
+  <div class="ns-num">03</div>
+  <div class="ns-body">
+    <div class="ns-label">비교</div>
+    <h2 class="ns-title">왜 QR-RO인가?</h2>
+    <table class="ctbl">
+      <thead><tr><th style="text-align:left;width:26%">구분</th><th>종이 안내문</th><th>태블릿 메뉴판</th><th class="hl">QR-RO</th></tr></thead>
+      <tbody>
+        <tr><td>인테리어</td><td><i class="ti ti-x cx"></i><br><span style="font-size:12px;color:#aaa">테이프 자국</span></td><td><i class="ti ti-x cx"></i><br><span style="font-size:12px;color:#aaa">공간 차지</span></td><td class="qcol"><i class="ti ti-check ck"></i><br><span style="font-size:12px;color:#1a7a55">투명 아크릴</span></td></tr>
+        <tr><td>초기 비용</td><td>인쇄비 반복</td><td>수십만 원</td><td class="qcol" style="color:#1a7a55;font-weight:700">기기값 0원</td></tr>
+        <tr><td>리뷰 방어</td><td><i class="ti ti-x cx"></i></td><td><i class="ti ti-x cx"></i></td><td class="qcol"><i class="ti ti-check ck"></i></td></tr>
+        <tr><td>실시간 업데이트</td><td><i class="ti ti-x cx"></i></td><td><i class="ti ti-check ck"></i></td><td class="qcol"><i class="ti ti-check ck"></i></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="ns">
+  <div class="ns-num">04</div>
+  <div class="ns-body">
+    <div class="ns-label">도입 사례</div>
+    <h2 class="ns-title">함께한 매장들의<br>실제 변화를 소개합니다.</h2>
+    <div class="port-grid">
+      <div class="port-empty"><i class="ti ti-building-store"></i><span>도입 사례<br>준비 중</span></div>
+      <div class="port-empty"><i class="ti ti-building-store"></i><span>도입 사례<br>준비 중</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="ns" style="border-bottom:1.5px solid #0d0d0d;">
+    <div class="ns-num">05</div>
+    <div class="ns-body">
+      <div class="ns-label">요금제</div>
+      <h2 class="ns-title">비용이 아닌 투자입니다.<br>첫 1개월은 무료.</h2>
+    </div>
+  </div>
+  <!-- 여름 이벤트 배너 -->
+  <div style="background:#0d0d0d; color:#fff; padding:20px 60px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+    <div style="display:flex; align-items:center; gap:16px;">
+      <span style="background:#1a7a55; color:#fff; font-size:12px; font-weight:700; padding:6px 14px; border-radius:2px; letter-spacing:0.06em; white-space:nowrap;">🌞 여름 특가</span>
+      <div>
+        <div style="font-size:18px; font-weight:700;">초기 설치비 전액 무료 이벤트</div>
+        <div style="font-size:13px; color:#aaa; margin-top:3px;">기본 3만 원 / 고급 6만 원 / 프리미엄 9만 원 → 여름 한정 0원</div>
+      </div>
+    </div>
+    <div style="font-size:13px; color:#aaa; white-space:nowrap;">* 이벤트 기간 한정, 조기 종료될 수 있습니다</div>
+  </div>
+
+  <div class="plan-grid">
+    <!-- 기본형 -->
+    <div class="plan">
+      <div class="plan-tier">Basic · 기본형</div>
+      <div class="plan-price">5</div>
+      <div class="plan-unit">만 원 / 월</div>
+      <div class="plan-name">멘탈 방패</div>
+      <div style="background:#f5f5f5; border-radius:6px; padding:12px 14px; margin-bottom:16px; font-size:13px; color:#444; line-height:1.7;">
+        <div style="font-weight:700; margin-bottom:4px; font-size:14px;">포함 수량</div>
+        아크릴 스탠드 5개 + 방수 스티커 5개<br>
+        <span style="color:#888; font-size:12px;">핵심 테이블 맛보기 배치 추천</span>
+      </div>
+      <div class="plan-feats">
+        <div class="plan-feat"><i class="ti ti-check"></i>QR 안내 수정 월 1회</div>
+        <div class="plan-feat"><i class="ti ti-check"></i>악성 리뷰 사전 차단</div>
+        <div class="plan-feat"><i class="ti ti-check"></i>기본 매장 안내</div>
+        <div class="plan-feat"><i class="ti ti-check"></i>비밀 건의함</div>
+        <div class="plan-feat"><i class="ti ti-check"></i>초기 설치비 3만 원 <span style="color:#1a7a55; font-weight:700; margin-left:4px;">→ 🌞여름 무료</span></div>
+      </div>
+      <div style="margin-top:14px; font-size:12px; color:#aaa;">수량 초과 시 추가 비용 발생</div>
+    </div>
+
+    <!-- 고급형 -->
+    <div class="plan best">
+      <div class="plan-tier">Best ★ · 고급형</div>
+      <div class="plan-price">10</div>
+      <div class="plan-unit">만 원 / 월</div>
+      <div class="plan-name">매출 부스터</div>
+      <div style="background:rgba(255,255,255,0.15); border-radius:6px; padding:12px 14px; margin-bottom:16px; font-size:13px; color:rgba(255,255,255,0.85); line-height:1.7;">
+        <div style="font-weight:700; margin-bottom:4px; font-size:14px; color:#fff;">포함 수량</div>
+        아크릴 스탠드 15개 + 방수 스티커 10개<br>
+        <span style="color:rgba(255,255,255,0.6); font-size:12px;">중형 카페 전 테이블 커버 가능</span>
+      </div>
+      <div class="plan-feats">
+        <div class="plan-feat"><i class="ti ti-check"></i>QR 안내 수정 월 4회</div>
+        <div class="plan-feat"><i class="ti ti-check"></i>기본형 전체 포함</div>
+        <div class="plan-feat"><i class="ti ti-check"></i>디지털 마케팅 배너</div>
+        <div class="plan-feat"><i class="ti ti-check"></i>리뷰 이벤트 세팅</div>
+        <div class="plan-feat"><i class="ti ti-check"></i>초기 설치비 6만 원 <span style="color:#a8e6c8; font-weight:700; margin-left:4px;">→ 🌞여름 무료</span></div>
+      </div>
+      <div style="margin-top:14px; font-size:12px; color:rgba(255,255,255,0.45);">수량 초과 시 추가 비용 발생</div>
+    </div>
+
+    <!-- 프리미엄 -->
+    <div class="plan">
+      <div class="plan-tier">Premium · 프리미엄</div>
+      <div class="plan-price">15</div>
+      <div class="plan-unit">만 원 / 월</div>
+      <div class="plan-name">풀케어 비서</div>
+      <div style="background:#f5f5f5; border-radius:6px; padding:12px 14px; margin-bottom:16px; font-size:13px; color:#444; line-height:1.7;">
+        <div style="font-weight:700; margin-bottom:4px; font-size:14px;">포함 수량</div>
+        아크릴 스탠드 30개 + 방수 스티커 20개<br>
+        <span style="color:#888; font-size:12px;">대형 카페 · 파손 시 무상 교체(AS) 포함</span>
+      </div>
+      <div class="plan-feats">
+        <div class="plan-feat"><i class="ti ti-check"></i>QR 안내 수정 무제한</div>
+        <div class="plan-feat"><i class="ti ti-check"></i>고급형 전체 포함</div>
+        <div class="plan-feat"><i class="ti ti-check"></i>월 데이터 리포트</div>
+        <div class="plan-feat"><i class="ti ti-check"></i>초기 설치비 9만 원 <span style="color:#1a7a55; font-weight:700; margin-left:4px;">→ 🌞여름 무료</span></div>
+      </div>
+      <div style="margin-top:14px; font-size:12px; color:#aaa;">수량 초과 시 추가 비용 발생</div>
+    </div>
+  </div>
+
+  <!-- 스탠드 타입 선택 -->
+  <div style="border-top:1.5px solid #0d0d0d; padding:32px 60px; background:#fafafa;">
+    <div style="font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:#aaa; margin-bottom:16px; display:flex; align-items:center; gap:12px;"><span style="display:inline-block; width:28px; height:1px; background:#aaa;"></span>스탠드 타입 선택</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:500px;">
+      <div style="border:1.5px solid #e0e0e0; border-radius:8px; padding:18px 20px; cursor:pointer; transition:border-color .2s;" onmouseover="this.style.borderColor='#1a7a55'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:22px; margin-bottom:8px;">▭</div>
+        <div style="font-size:16px; font-weight:700; margin-bottom:4px;">가로형</div>
+        <div style="font-size:13px; color:#888; line-height:1.6;">넓은 테이블에 적합<br>안정적인 거치</div>
+      </div>
+      <div style="border:1.5px solid #e0e0e0; border-radius:8px; padding:18px 20px; cursor:pointer; transition:border-color .2s;" onmouseover="this.style.borderColor='#1a7a55'" onmouseout="this.style.borderColor='#e0e0e0'">
+        <div style="font-size:22px; margin-bottom:8px;">▯</div>
+        <div style="font-size:16px; font-weight:700; margin-bottom:4px;">세로형</div>
+        <div style="font-size:13px; color:#888; line-height:1.6;">좁은 테이블에 적합<br>공간 효율 최적화</div>
+      </div>
+    </div>
+    <div style="font-size:13px; color:#aaa; margin-top:14px;">* 신청 시 원하시는 타입과 수량을 선택해 주세요.</div>
+  </div>
+
+
+</section>
+
+<section class="ns" id="faq">
+  <div class="ns-num">06</div>
+  <div class="ns-body">
+    <div class="ns-label">FAQ</div>
+    <h2 class="ns-title">자주 묻는 질문</h2>
+    <div>
+      <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)">설치는 어떻게 하나요? <i class="ti ti-chevron-down"></i></button><div class="faq-ans">별도의 방문 설치 없이 간편합니다. 신청 후 아크릴 스탠드와 방수 스티커를 택배로 발송해 드리며, 받으신 즉시 테이블에 올려두시면 바로 사용 가능합니다.</div></div>
+      <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)">중간에 해지할 수 있나요? <i class="ti ti-chevron-down"></i></button><div class="faq-ans">월 구독은 언제든 해지 가능합니다. 연간 구독의 경우 남은 기간 환불 정책이 적용되며 자세한 내용은 상담 시 안내드립니다.</div></div>
+      <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)">QR 안내 내용을 직접 바꿀 수 있나요? <i class="ti ti-chevron-down"></i></button><div class="faq-ans">기본형 월 1회, 고급형 월 4회, 프리미엄 무제한으로 업데이트해 드립니다. 이메일로 요청하시면 빠르게 처리해 드립니다.</div></div>
+      <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)">비밀 건의함이 오면 어떻게 알 수 있나요? <i class="ti ti-chevron-down"></i></button><div class="faq-ans">손님이 건의를 남기는 즉시 사장님 이메일로 알림이 전달됩니다. 손님 정보는 익명으로 처리됩니다.</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="foot-logo">QR<em>-</em>RO</div>
+    <div class="foot-info">오프라인 매장을 위한 스마트 QR 안내 시스템</div>
+  </div>
+  <button class="btn-black" style="width:auto;" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">무료 체험 신청 <i class="ti ti-arrow-right"></i></button>
+</footer>
+
+<script>
+function toggleFaq(btn) {
+  const ans = btn.nextElementSibling;
+  const isOpen = ans.classList.contains('open');
+  document.querySelectorAll('.faq-ans, .faq-btn').forEach(e => e.classList.remove('open'));
+  if (!isOpen) { ans.classList.add('open'); btn.classList.add('open'); }
+}
+</script>
+</body>
+</html>
